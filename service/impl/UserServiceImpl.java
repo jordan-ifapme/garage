@@ -2,9 +2,12 @@ package ifapme.be.garage.demo.service.impl;
 
 import ifapme.be.garage.demo.exception.BusinessException;
 import ifapme.be.garage.demo.exception.UserAlreadyExistException;
+import ifapme.be.garage.demo.exception.UserHasVoitureException;
 import ifapme.be.garage.demo.exception.UserNotFoundException;
 import ifapme.be.garage.demo.model.User;
+import ifapme.be.garage.demo.model.Voiture;
 import ifapme.be.garage.demo.repository.UserRepository;
+import ifapme.be.garage.demo.repository.VoitureRepository;
 import ifapme.be.garage.demo.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +16,13 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
+  private final VoitureRepository voitureRepository;
 
-  public UserServiceImpl(UserRepository userRepository) {
+  public UserServiceImpl(UserRepository userRepository, VoitureRepository voitureRepository) {
     this.userRepository = userRepository;
+    this.voitureRepository = voitureRepository;
   }
+
 
   @Override
   public User findById(Integer id) {
@@ -52,6 +58,15 @@ public class UserServiceImpl implements UserService {
     User userToDelete = this.findById(userId);
     if (userToDelete == null) {
       throw new UserNotFoundException(userId);
+    }
+    List<Voiture> userVoitures = voitureRepository
+      .findByUserId(userId);
+    if (!userVoitures.isEmpty()) {
+      List<String> plaques = userVoitures
+        .stream()
+        .map(Voiture::getNumeroDePLaque)
+        .toList();
+      throw new UserHasVoitureException(userId, plaques);
     }
     userRepository.delete(userToDelete);
   }

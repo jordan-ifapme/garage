@@ -1,7 +1,6 @@
 package ifapme.be.garage.demo.service;
 
 import ifapme.be.garage.demo.exception.BusinessException;
-import ifapme.be.garage.demo.exception.UserNotFoundException;
 import ifapme.be.garage.demo.model.User;
 
 import java.util.List;
