@@ -1,6 +1,7 @@
 package ifapme.be.garage.demo.controller;
 
 import ifapme.be.garage.demo.command.CreateVoitureCommand;
+import ifapme.be.garage.demo.exception.BusinessException;
 import ifapme.be.garage.demo.model.Voiture;
 import ifapme.be.garage.demo.service.VoitureService;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class VoitureController {
   }
 
   @PostMapping
-  public Voiture createVoiture(@RequestBody CreateVoitureCommand command) {
-
+  public Voiture createVoiture(@RequestBody CreateVoitureCommand command) throws BusinessException {
+    return voitureService.createVoiture(command);
   }
 }

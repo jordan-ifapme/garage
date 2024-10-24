@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class Voiture {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "numero_plaque", nullable = false)
   private String numeroDePLaque;
 
@@ -21,12 +20,20 @@ public class Voiture {
 
   private String modele;
 
-  private Integer kilometre;
+  private Integer kilometre = 0;
 
   @Column(name = "kilometre_entretient")
-  private Integer kilometreEntretient;
+  private Integer kilometreEntretient = 0;
 
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
+
+  public Voiture(String numeroDePLaque, String couleur, String marque, String modele, User user) {
+    this.numeroDePLaque = numeroDePLaque;
+    this.couleur = couleur;
+    this.marque = marque;
+    this.modele = modele;
+    this.user = user;
+  }
 }

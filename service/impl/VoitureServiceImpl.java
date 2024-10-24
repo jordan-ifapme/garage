@@ -43,6 +43,13 @@ public class VoitureServiceImpl implements VoitureService {
     if (this.findById(command.getNumeroDePlaque()) != null) {
       throw new VoitureAlreadyExistsException(command.getNumeroDePlaque());
     }
-    return null;
+    Voiture voitureToCreate = new Voiture(
+      command.getNumeroDePlaque(),
+      command.getCouleur(),
+      command.getMarque(),
+      command.getModele(),
+      user
+    );
+    return voitureRepository.save(voitureToCreate);
   }
 }
