@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class Voiture {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", nullable = false)
-  private Integer id;
+  @Column(name = "numero_plaque", nullable = false)
+  private String numeroDePLaque;
 
   private String couleur;
 

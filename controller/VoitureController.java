@@ -1,10 +1,9 @@
 package ifapme.be.garage.demo.controller;
 
+import ifapme.be.garage.demo.command.CreateVoitureCommand;
 import ifapme.be.garage.demo.model.Voiture;
 import ifapme.be.garage.demo.service.VoitureService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,15 @@ public class VoitureController {
   @GetMapping(value = "/all")
   public List<Voiture> getAll() {
     return voitureService.findAll();
+  }
+
+  @GetMapping("{id}")
+  public Voiture getById(@PathVariable String id) {
+    return voitureService.findById(id);
+  }
+
+  @PostMapping
+  public Voiture createVoiture(@RequestBody CreateVoitureCommand command) {
+
   }
 }

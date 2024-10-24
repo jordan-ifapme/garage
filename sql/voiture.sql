@@ -1,19 +1,18 @@
-CREATE TABLE public.voiture
+CREATE TABLE IF NOT EXISTS public.voiture
 (
-    id numeric,
-    couleur character varying,
-    marque character varying,
-    modele character varying,
+    numero_plaque character varying NOT NULL,
+    couleur character varying COLLATE pg_catalog."default",
+    marque character varying COLLATE pg_catalog."default",
+    modele character varying COLLATE pg_catalog."default",
     kilometre numeric,
     kilometre_entretient numeric,
     user_id numeric,
-    PRIMARY KEY (id),
+    CONSTRAINT voiture_pkey PRIMARY KEY (numero_plaque),
     CONSTRAINT user_fk FOREIGN KEY (user_id)
         REFERENCES public."user" (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-        NOT VALID
-);
+)
 
 ALTER TABLE IF EXISTS public.voiture
     OWNER to postgres;
