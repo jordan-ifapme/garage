@@ -1,7 +1,6 @@
 package ifapme.be.garage.demo.controller;
 
 import ifapme.be.garage.demo.exception.BusinessException;
-import ifapme.be.garage.demo.exception.UserNotFoundException;
 import ifapme.be.garage.demo.model.User;
 import ifapme.be.garage.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +28,12 @@ public class UserController {
   }
 
   @PutMapping
-  public User updateUser(@RequestBody User user) throws UserNotFoundException {
+  public User updateUser(@RequestBody User user) throws BusinessException {
     return userService.updateUser(user);
   }
 
   @DeleteMapping("{id}")
-  public void deleteUser(@PathVariable(value = "id") Integer userId) throws UserNotFoundException {
+  public void deleteUser(@PathVariable(value = "id") Integer userId) throws BusinessException {
     userService.deleteUser(userId);
   }
 

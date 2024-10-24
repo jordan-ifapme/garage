@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User updateUser(User user) throws UserNotFoundException {
+  public User updateUser(User user) throws BusinessException {
     if (this.findById(user.getId()) == null) {
       throw new UserNotFoundException(user.getId());
     }
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void deleteUser(Integer userId) throws UserNotFoundException {
+  public void deleteUser(Integer userId) throws BusinessException {
     User userToDelete = this.findById(userId);
     if (userToDelete == null) {
       throw new UserNotFoundException(userId);
