@@ -42,6 +42,6 @@ public class VoitureController {
 
   @PostMapping("entretient")
   public void entretient(@RequestBody VoitureEntretientCommand command) throws BusinessException {
-
+    voitureService.entretient(command);
   }
 }
