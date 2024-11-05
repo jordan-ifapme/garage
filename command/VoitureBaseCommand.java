@@ -1,5 +1,6 @@
 package ifapme.be.garage.demo.command;
 
+import ifapme.be.garage.demo.model.Couleur;
 import lombok.Getter;
 
 @Getter

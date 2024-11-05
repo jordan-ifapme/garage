@@ -4,20 +4,23 @@ import ifapme.be.garage.demo.command.CreateVoitureCommand;
 import ifapme.be.garage.demo.command.VoitureEntretientCommand;
 import ifapme.be.garage.demo.command.VoitureRouleCommand;
 import ifapme.be.garage.demo.exception.*;
+import ifapme.be.garage.demo.model.Couleur;
 import ifapme.be.garage.demo.model.User;
 import ifapme.be.garage.demo.model.Voiture;
 import ifapme.be.garage.demo.repository.VoitureRepository;
 import ifapme.be.garage.demo.service.UserService;
 import ifapme.be.garage.demo.service.VoitureService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class VoitureServiceImpl implements VoitureService {
-
-  private static final Integer MAX_TRAJET = 2500;
-  private static final Integer LIMITE_ENTRETIENT = 15000;
+  @Value("${voiture.roule.limite:5000}")
+  private Integer MAX_TRAJET;
+  @Value("${voiture.entretient.limite}")
+  private Integer LIMITE_ENTRETIENT;
 
   private final VoitureRepository voitureRepository;
   private final UserService userService;
@@ -46,9 +49,10 @@ public class VoitureServiceImpl implements VoitureService {
     if (this.findById(command.getNumeroDePlaque()) != null) {
       throw new VoitureAlreadyExistsException(command.getNumeroDePlaque());
     }
+
     Voiture voitureToCreate = new Voiture(
       command.getNumeroDePlaque(),
-      command.getCouleur(),
+      Couleur.valueOf(command.getCouleur()),
       command.getMarque(),
       command.getModele(),
       user

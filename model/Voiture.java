@@ -14,7 +14,8 @@ public class Voiture {
   @Column(name = "numero_plaque", nullable = false)
   private String numeroDePLaque;
 
-  private String couleur;
+  @Enumerated(EnumType.STRING)
+  private Couleur couleur;
 
   private String marque;
 
@@ -29,7 +30,7 @@ public class Voiture {
   @JoinColumn(name = "user_id")
   private User user;
 
-  public Voiture(String numeroDePLaque, String couleur, String marque, String modele, User user) {
+  public Voiture(String numeroDePLaque, Couleur couleur, String marque, String modele, User user) {
     this.numeroDePLaque = numeroDePLaque;
     this.couleur = couleur;
     this.marque = marque;
