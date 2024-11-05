@@ -1,6 +1,7 @@
 package ifapme.be.garage.demo.controller;
 
 import ifapme.be.garage.demo.command.CreateVoitureCommand;
+import ifapme.be.garage.demo.command.VoitureEntretientCommand;
 import ifapme.be.garage.demo.command.VoitureRouleCommand;
 import ifapme.be.garage.demo.exception.BusinessException;
 import ifapme.be.garage.demo.model.Voiture;
@@ -37,5 +38,10 @@ public class VoitureController {
   @PostMapping("roule")
   public void roule(@RequestBody VoitureRouleCommand command) throws BusinessException {
     voitureService.roule(command);
+  }
+
+  @PostMapping("entretient")
+  public void entretient(@RequestBody VoitureEntretientCommand command) throws BusinessException {
+
   }
 }

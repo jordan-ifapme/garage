@@ -1,6 +1,7 @@
 package ifapme.be.garage.demo.service.impl;
 
 import ifapme.be.garage.demo.command.CreateVoitureCommand;
+import ifapme.be.garage.demo.command.VoitureEntretientCommand;
 import ifapme.be.garage.demo.command.VoitureRouleCommand;
 import ifapme.be.garage.demo.exception.*;
 import ifapme.be.garage.demo.model.User;
@@ -71,5 +72,15 @@ public class VoitureServiceImpl implements VoitureService {
     }
     voiture.setKilometre(totalKm);
     voitureRepository.save(voiture);
+  }
+
+  @Override
+  public void entretient(VoitureEntretientCommand command) throws BusinessException {
+    Voiture voitureToUpdate = this.findById(command.getNumPlaque());
+    if (voitureToUpdate == null) {
+      throw new VoitureNotFoundException(command.getNumPlaque());
+    }
+    voitureToUpdate.setKilometreEntretient(voitureToUpdate.getKilometre());
+    voitureRepository.save(voitureToUpdate);
   }
 }
